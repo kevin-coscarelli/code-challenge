@@ -24,13 +24,15 @@ export function getItems(props?: GetItemsProps) {
     const currentPage = props?.page || 0
     const start = currentPage * pageSize;
     const end = start + pageSize
-    console.log(start, end)
     response = response.slice(start, end > data.length ? undefined : end);
     return Promise.resolve(response);
 }
 
 export function setItem(item: ItemData) {
-    data.push(item);
+    if (data.find((dataItem) => dataItem.imagePath === item.imagePath)) {
+        return Promise.resolve(false);
+    }
+    data.unshift(item);
     return Promise.resolve(true);
 }
 

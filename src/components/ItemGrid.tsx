@@ -10,8 +10,11 @@ export const ItemGrid = ({ searchTerm }: { searchTerm?: string }) => {
 
     useEffect(() => {
         getItems({searchTerm}).then((items) => setItemData(items));
-        getTotalItemsLength().then((itemsLength) => setTotalItemsLength(itemsLength));
     }, [searchTerm]);
+
+    useEffect(() => {
+        getTotalItemsLength().then((itemsLength) => setTotalItemsLength(itemsLength));
+    }, [itemData]);
 
     const paginationHandler = (num: number) => {
         getItems({searchTerm, page: num - 1}).then((items) => setItemData(items));
@@ -27,7 +30,7 @@ export const ItemGrid = ({ searchTerm }: { searchTerm?: string }) => {
 
     return (
         <>
-            <div className='mx-6 my-10 gap-2 flex flex-col overflow-y-auto grow'>
+            <div className='mx-6 my-10 gap-2 flex flex-col overflow-y-auto grow' role='main'>
                 {itemData && itemData.length ? mapItemData(itemData) : (
                     <h3>No items were found.</h3>
                 )}
