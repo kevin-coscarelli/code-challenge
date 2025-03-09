@@ -5,7 +5,7 @@ export const PageButtons = (
     { itemsLength: number, paginationHandler: (num: number) => void }
 ) => {
     const mapToButtons = (itemsLength: number) => {
-        const pages = Array.from({length: Math.round(itemsLength/pageSize)}, (_, i) => i + 1);
+        const pages = Array.from({length: Math.ceil(itemsLength/pageSize)}, (_, i) => i + 1);
         return pages.map((num) => (
             <button
                 onClick={() => paginationHandler(num)}
